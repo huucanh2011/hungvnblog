@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Auth\ProfileController;
 use App\Http\Controllers\Admin\Category\CategoryController;
@@ -19,9 +21,9 @@ use App\Http\Controllers\Admin\Post\PostController as AdminPostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', HomeController::class)->name('home');
+Route::get('/c/{categorySlug}', [PostController::class, 'index'])->name('user.post.index');
+Route::get('/c/{categorySlug}/p/{id}', [PostController::class, 'show'])->name('user.post.show');
 
 // Admin
 Route::group([
@@ -58,4 +60,3 @@ Route::group([
         // Route::post('/posts/upload-image', [UploadImageController::class, 'upload'])->name('posts.upload-image');
     });
 });
-

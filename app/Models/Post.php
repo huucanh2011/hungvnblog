@@ -38,10 +38,10 @@ class Post extends Model
         $this->attributes['image'] = config('app.url') . '/storage/posts/' . $image;
     }
 
-    // public function getContentResumeAttribute()
-    // {
-    //     return Str::limit(strip_tags_with_whitespace($this->content), 150, '...');
-    // }
+    public function getContentResumeAttribute()
+    {
+        return Str::limit(strip_tags($this->content), 150, '...');
+    }
 
     public function getCreatedAtFormatedAttribute()
     {
@@ -69,7 +69,7 @@ class Post extends Model
         return $this->belongsTo(User::class)->withDefault();
     }
 
-    public function scopeIsPublish($query)
+    public function scopeIsPublished($query)
     {
         return $query->where('is_publish', true);
     }
